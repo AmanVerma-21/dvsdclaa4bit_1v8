@@ -7,16 +7,16 @@ The object of this project to design a 4-bit CLA adder using open source EDA too
 - [Performance Specifications](#performance-specifications)
 - [Block Diagram](#block-diagram)
 - [Installation Instructions](#installation-instructions)
-  * [eSim and Ngspice Installation(Ubuntu)](#esim-and-ngspice-installation-ubuntu-)
-  * [Icarus Verilog and GTK wave Installation(Ubuntu)](#icarus-verilog-and-gtk-wave-installation-ubuntu-)
-  * [Openlane and sky130 pdk Installation(Ubuntu)](#openlane-and-sky130-pdk-installation-ubuntu-)
-- [Prelayout Simulation](#prelayout-simulation-)
+  * [eSim and Ngspice Installation (Ubuntu)](#esim-and-ngspice-installation-ubuntu)
+  * [Icarus Verilog and GTK wave Installation (Ubuntu)](#icarus-verilog-and-gtk-wave-installation-ubuntu)
+  * [Openlane and sky130 pdk Installation](#openlane-and-sky130-pdk-installation)
+- [Prelayout Simulation](#prelayout-simulation)
   * [In eSim and Ngpice](#in-esim-and-ngspice)
-    * [Schematic:](#schematic-)
+    * [Schematic](#schematic)
     * [Edit Netlist using sky130 pdk](#edit-netlist-using-sky130-pdk)
     * [Simulations in Ngspice](#simulations-in-ngspice)
-          - [Output Vs. Input Plot](#output-vs-input-plot)
-          - [Propagation Delay](#propagation-delay)
+        > [Output Vs. Input Plot](#output-vs-input-plot)<br>
+        > [Propagation Delay](#propagation-delay)
 - [Layout design in Magic](#layout-design-in-magic)
 - [Post Layout Simulation](#post-layout-simulation)
   * [Output Vs. Input](#output-vs-input)
@@ -60,13 +60,13 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
 ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/ad01ffe8c861473edc7242b49be7c29a54198739/g1.JPG)
 
 # Installation Instructions
- ## eSim and Ngspice Installation(Ubuntu)
+ ## eSim and Ngspice Installation (Ubuntu)
   Refer the following websites for installation of eSim :
   - https://esim.fossee.in/downloads
   - https://github.com/FOSSEE/eSim/blob/master/INSTALL
   Ngspice gets installed alongwith eSim. If any other version ids to be installed refer: http://ngspice.sourceforge.net/download.html
 
- ## Icarus Verilog and GTK wave Installation(Ubuntu)
+ ## Icarus Verilog and GTK wave Installation (Ubuntu)
   In terminal window run this command:
   `sudo apt install iverilog gtkwave`
   Enter the password.(if you have)
@@ -84,7 +84,7 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
  ## In eSim and Ngspice
  Refer following manual to know how to operate eSim:
  https://static.fossee.in/esim/manuals/eSim_Manual_2020_August.pdf
-  ### Schematic:
+  ### Schematic
   ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/88a55b0e11e86e4f49996dec90fcf0333bd42194/pre_design_spec_sheet/blck_dg.JPG)
 
   - individual block diagram using n- and p-mosfets:
