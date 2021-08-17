@@ -7,19 +7,16 @@ The object of this project to design a 4-bit CLA adder using open source EDA too
 - [Performance Specifications](#performance-specifications)
 - [Block Diagram](#block-diagram)
 - [Installation Instructions](#installation-instructions)
-  * [eSim Installation](#esim-installation)
-  * [Ngspice Installation](#ngspice-installation)
-  * [Skywater Pdk Installation(Ubuntu)](#skywater-pdk-installation-ubuntu-)
-  * [Magic Installation(Ubuntu)](#magic-installation-ubuntu-)
-- [Prelayout Simulation in eSim and Ngspice](#prelayout-simulation-in-esim-and-ngspice)
-  * [Schematic:](#schematic-)
-  * [Adding Simulation parameters:](#adding-simulation-parameters-)
-  * [Adding Sky130 parameters](#adding-sky130-parameters)
-  * [Simulations in Ngspice](#simulations-in-ngspice)
-      - [Output Vs. Input Plot](#output-vs-input-plot)
-      - [Frequency Response Plot](#frequency-response-plot)
-      - [Output Vs.Supply Plot](#output-vssupply-plot)
-      - [Current Gain Vs. Output](#current-gain-vs-output)
+  * [eSim and Ngspice Installation(Ubuntu)](#esim-and-ngspice-installation-ubuntu-)
+  * [Icarus Verilog and GTK wave Installation(Ubuntu)](#icarus-verilog-and-gtk-wave-installation-ubuntu-)
+  * [Openlane and sky130 pdk Installation(Ubuntu)](#openlane-and-sky130-pdk-installation-ubuntu-)
+- [Prelayout Simulation](#prelayout-simulation-)
+  * [In eSim and Ngpice](#in-esim-and-ngspice)
+    * [Schematic:](#schematic-)
+    * [Edit Netlist using sky130 pdk](#edit-netlist-using-sky130-pdk)
+    * [Simulations in Ngspice](#simulations-in-ngspice)
+          - [Output Vs. Input Plot](#output-vs-input-plot)
+          - [Propagation Delay](#propagation-delay)
 - [Layout design in Magic](#layout-design-in-magic)
 - [Post Layout Simulation](#post-layout-simulation)
   * [Output Vs. Input](#output-vs-input)
@@ -61,18 +58,48 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
 
 # Block Diagram
 ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/ad01ffe8c861473edc7242b49be7c29a54198739/g1.JPG)
-# Installation guide
-## eSim Installation
- Refer the following websites for installation of eSim :
- - https://esim.fossee.in/downloads
- - https://github.com/FOSSEE/eSim/blob/master/INSTALL
- 
-## Ngspice Installation
-Ngspice gets installed alongwith eSim. If any other version ids to be installed refer: http://ngspice.sourceforge.net/download.html
 
+# Installation Instructions
+ ## eSim and Ngspice Installation(Ubuntu)
+  Refer the following websites for installation of eSim :
+  - https://esim.fossee.in/downloads
+  - https://github.com/FOSSEE/eSim/blob/master/INSTALL
+  Ngspice gets installed alongwith eSim. If any other version ids to be installed refer: http://ngspice.sourceforge.net/download.html
 
+ ## Icarus Verilog and GTK wave Installation(Ubuntu)
+  In terminal window run this command:
+  `sudo apt install iverilog gtkwave`
+  Enter the password.(if you have)
 
+ ## Openlane and sky130 pdk Installation
+  In terminal window run below given commands one by one:
+  ```bash
+     git clone https://github.com/The-OpenROAD-Project/OpenLane.git
+     cd OpenLane/
+     make openlane
+     make pdk
+     make test # This a ~5 minute test that verifies that the flow and the pdk were properly installed
+ ```
+# Prelayout Simulation 
+ ## In eSim and Ngspice
+ Refer following manual to know how to operate eSim:
+ https://static.fossee.in/esim/manuals/eSim_Manual_2020_August.pdf
+  ### Schematic:
+  ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/88a55b0e11e86e4f49996dec90fcf0333bd42194/pre_design_spec_sheet/blck_dg.JPG)
 
+  - individual block diagram using n- and p-mosfets:
+  
+  ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/88a55b0e11e86e4f49996dec90fcf0333bd42194/pre_design_spec_sheet/circuit_1.JPG)
+  
+  ### Edit Netlist using sky130 pdk
+  Add the sky130 devices and the libraries in .cir.out file
+  For more [info](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/90991faf1390d26bbfa89970b4fae71d0e57ff2a/pre_design_spec_sheet/pdk_editing.md)
+  ### Simulations in Ngspice
+   #### Output Vs. Input Plot
+   ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/26e1bc254d5ee79d5b9a9252eb4bad2eb8bb468b/pre_design_spec_sheet/out_img_2.JPG)
+   #### Propagation Delay
+   - approx 5ns propagation delay took for each output generating:  
+   ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/e71be27970501889ab035358b31a37a92ceffc8f/pre_design_spec_sheet/out1.JPG)
 
 
 
