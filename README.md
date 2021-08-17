@@ -14,9 +14,12 @@ The object of this project to design a 4-bit CLA adder using open source EDA too
   * [In eSim and Ngpice](#in-esim-and-ngspice)
     * [Schematic](#schematic)
     * [Edit Netlist using sky130 pdk](#edit-netlist-using-sky130-pdk)
-    * [Simulations in Ngspice](#simulations-in-ngspice)
+    * [Simulation in Ngspice](#simulation-in-ngspice)
         > [Output Vs. Input Plot](#output-vs-input-plot)<br>
         > [Propagation Delay](#propagation-delay)
+  * [In Iverilog and GTKwave](#in-iverilog-and-gtkwave)
+    * [RTL code](#rtl-code)
+    * [Simulation in GTKwave](#simulation-in-gtkwave)
 - [Layout design in Magic](#layout-design-in-magic)
 - [Post Layout Simulation](#post-layout-simulation)
   * [Output Vs. Input](#output-vs-input)
@@ -40,24 +43,26 @@ The object of this project to design a 4-bit CLA adder using open source EDA too
 
 # Opensource Tools used
 
-- ## esim: 
-eSim creates a circuit schematic using eeschema editor of Kicad. It allows the creation and modification of components and symbol libraries. It can serve as an alternative to commercially available/licensed software tools like OrCAD, Xpedition and HSPICE. For more info [refer](https://esim.fossee.in/home)
-- ## ngspice:
-Ngspice is a mixed-level/mixed-signal open source circuit simulator. Its code is based on three open source software packages: Spice3f5, Cider1b1 and Xspice. It is the open source successor of these venerable packages. Many, many modifications, bug fixes and improvements have been added to the code, yielding a stable and reliable simulator. Therefore, besides being used as a standalone simulator, Ngspice has been incorporated into many projects. For more info [refer](http://ngspice.sourceforge.net/)
-- ## iverilog:
-Icarus Verilog is a Verilog simulation and synthesis tool. It operates as a compiler, compiling source code written in Verilog (IEEE-1364) into some target format. For batch simulation, the compiler can generate an intermediate form called vvp assembly. This intermediate form is executed by the `vvp` command. For synthesis, the compiler generates netlists in the desired format. For more info [refer](http://iverilog.icarus.com/)
-- ## gtk wave:
-GTKWave is a fully featured GTK+ based wave viewer for Unix, Win32, and Mac OSX which reads LXT, LXT2, VZT, FST, and GHW files as well as standard Verilog VCD/EVCD files and allows their viewing. For more info [refer](http://gtkwave.sourceforge.net/)
-- ## Skywater pdk:
-The SkyWater Open Source PDK is a collaboration between Google and SkyWater Technology Foundry to provide a fully open source Process Design Kit and related resources, which can be used to create manufacturable designs at SkyWater's facility. As of May 2020, this repository is targeting the SKY130 process node. For more info [refer](https://skywater-pdk.readthedocs.io/en/latest/)
-- ## Openlane:
-OpenLANE is an automated RTL to GDSII flow based on several components including OpenROAD, Yosys, Magic, Netgen, Fault, OpenPhySyn, CVC, SPEF-Extractor, CU-GR, Klayout and custom methodology scripts for design exploration and optimization. The flow performs full ASIC implementation steps from RTL all the way down to GDSII - this capability will be released in the coming weeks with completed SoC design examples that have been sent to SkyWater for fabrication. For more info [refer](https://openlane.readthedocs.io/en/latest/)
+> - [esim:](https://esim.fossee.in/home)   
+eSim creates a circuit schematic using eeschema editor of Kicad. It allows the creation and modification of components and symbol libraries. It can serve as an alternative to commercially available/licensed software tools like OrCAD, Xpedition and HSPICE.
+> - [ngspice:](http://ngspice.sourceforge.net/)  
+Ngspice is a mixed-level/mixed-signal open source circuit simulator. Its code is based on three open source software packages: Spice3f5, Cider1b1 and Xspice. It is the open source successor of these venerable packages. Many, many modifications, bug fixes and improvements have been added to the code, yielding a stable and reliable simulator. Therefore, besides being used as a standalone simulator, Ngspice has been incorporated into many projects.
+> - [iverilog:](http://iverilog.icarus.com/)  
+Icarus Verilog is a Verilog simulation and synthesis tool. It operates as a compiler, compiling source code written in Verilog (IEEE-1364) into some target format. For batch simulation, the compiler can generate an intermediate form called vvp assembly. This intermediate form is executed by the `vvp` command. For synthesis, the compiler generates netlists in the desired format.
+> - [gtk wave:](http://gtkwave.sourceforge.net/)  
+GTKWave is a fully featured GTK+ based wave viewer for Unix, Win32, and Mac OSX which reads LXT, LXT2, VZT, FST, and GHW files as well as standard Verilog VCD/EVCD files and allows their viewing.
+> - [Skywater pdk:](https://skywater-pdk.readthedocs.io/en/latest/)  
+The SkyWater Open Source PDK is a collaboration between Google and SkyWater Technology Foundry to provide a fully open source Process Design Kit and related resources, which can be used to create manufacturable designs at SkyWater's facility. As of May 2020, this repository is targeting the SKY130 process node.
+> - [Openlane:](https://openlane.readthedocs.io/en/latest/)  
+OpenLANE is an automated RTL to GDSII flow based on several components including OpenROAD, Yosys, Magic, Netgen, Fault, OpenPhySyn, CVC, SPEF-Extractor, CU-GR, Klayout and custom methodology scripts for design exploration and optimization. The flow performs full ASIC implementation steps from RTL all the way down to GDSII - this capability will be released in the coming weeks with completed SoC design examples that have been sent to SkyWater for fabrication.
 
 
 # Performance Specifications
 
 # Block Diagram
 ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/ad01ffe8c861473edc7242b49be7c29a54198739/g1.JPG)
+- Internal flow of dvsdclaa4bit_1v8 chip  
+![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/d04518e41b8c98ba54113d942bd54fa916596be7/g2.JPG)
 
 # Installation Instructions
  ## eSim and Ngspice Installation (Ubuntu)
@@ -94,43 +99,35 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
   ### Edit Netlist using sky130 pdk
   Add the sky130 devices and the libraries in .cir.out file
   For more [info](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/90991faf1390d26bbfa89970b4fae71d0e57ff2a/pre_design_spec_sheet/pdk_editing.md)
-  ### Simulations in Ngspice
+  ### Simulation in Ngspice
+  Check here how to run Ngspice: http://ngspice.sourceforge.net/ngspice-tutorial.html
+  ```
+  $cd dvsdclaa4bit_1v8/Prelayout/ngs_sim
+  $ngspice dvsdclaa_1v8.cir.out
+  ```
    #### Output Vs. Input Plot
    ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/26e1bc254d5ee79d5b9a9252eb4bad2eb8bb468b/pre_design_spec_sheet/out_img_2.JPG)
    #### Propagation Delay
    - approx 5ns propagation delay took for each output generating:  
    ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/e71be27970501889ab035358b31a37a92ceffc8f/pre_design_spec_sheet/out1.JPG)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  ## In Iverilog and GTKwave
+  Refer following manual to know how to operate icarus verilog:
+  https://iverilog.fandom.com/wiki/Getting_Started
+   - ### RTL code  
+   Here is the full code and test bench for 4-bit CLA adder:  
+   [dvsdclaa_1v8.v]()  
+   [tb.v]()
+   - ### Simulation in GTKwave
+   run below terminal command:
+   ```
+   $cd dvsdclaa4bit_1v8/Prelayout/iveri_sim
+   $iverilog -o res tb.v dvsdclaa_1v8.v
+   ```
+   Now create the dumpfile(tb.vcd) of testbench flow:  
+   `$vvp res.out`<br>
+   And use gtkwave for visualisation <br>
+   `$gtkwave tb.vcd`
+   
+   
 
 
