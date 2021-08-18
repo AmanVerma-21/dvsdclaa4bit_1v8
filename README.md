@@ -128,37 +128,38 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
    `$gtkwave tb.vcd`
    #### Output Vs. Input Plot
    ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/7f79996a208cc67d742dbe890bb63a1ae63df0d0/pre_design_spec_sheet/gtk_ubu.JPG)
-## OpenLane Design Stages
+# Physical Layout design flow
+  ## OpenLane Design Stages
 
-OpenLane flow consists of several stages. By default all flow steps are run in sequence. Each stage may consist of multiple sub-stages. OpenLane can also be run interactively as shown [here](https://github.com/The-OpenROAD-Project/OpenLane/blob/40ada4699c2bbee45b273d5683849331e963488a/docs/source/advanced_readme.md).
+  OpenLane flow consists of several stages. By default all flow steps are run in sequence. Each stage may consist of multiple sub-stages. OpenLane can also be run interactively as shown [here](https://github.com/The-OpenROAD-Project/OpenLane/blob/40ada4699c2bbee45b273d5683849331e963488a/docs/source/advanced_readme.md).
 
-1. **Synthesis**
-    1. `yosys` - Performs RTL synthesis
-    2. `abc` - Performs technology mapping
-    3. `OpenSTA` - Performs static timing analysis on the resulting netlist to generate timing reports
-2. **Floorplan and PDN**
-    1. `init_fp` - Defines the core area for the macro as well as the rows (used for placement) and the tracks (used for routing)
-    2. `ioplacer` - Places the macro input and output ports
-    3. `pdn` - Generates the power distribution network
-    4. `tapcell` - Inserts welltap and decap cells in the floorplan
-3. **Placement**
-    1. `RePLace` - Performs global placement
-    2. `Resizer` - Performs optional optimizations on the design
-    3. `OpenDP` - Perfroms detailed placement to legalize the globally placed components
-4. **CTS**
-    1. `TritonCTS` - Synthesizes the clock distribution network (the clock tree)
-5. **Routing**
-    1. `FastRoute` - Performs global routing to generate a guide file for the detailed router
-    2. `CU-GR` - Another option for performing global routing.
-    3. `TritonRoute` - Performs detailed routing
-    4. `SPEF-Extractor` - Performs SPEF extraction
-6. **GDSII Generation**
-    1. `Magic` - Streams out the final GDSII layout file from the routed def
-    2. `Klayout` - Streams out the final GDSII layout file from the routed def as a back-up
-7. **Checks**
-    1. `Magic` - Performs DRC Checks & Antenna Checks
-    2. `Klayout` - Performs DRC Checks
-    3. `Netgen` - Performs LVS Checks
-    4. `CVC` - Performs Circuit Validity Checks
+  1. **Synthesis**
+      1. `yosys` - Performs RTL synthesis
+      2. `abc` - Performs technology mapping
+      3. `OpenSTA` - Performs static timing analysis on the resulting netlist to generate timing reports
+  2. **Floorplan and PDN**
+      1. `init_fp` - Defines the core area for the macro as well as the rows (used for placement) and the tracks (used for routing)
+      2. `ioplacer` - Places the macro input and output ports
+      3. `pdn` - Generates the power distribution network
+      4. `tapcell` - Inserts welltap and decap cells in the floorplan
+  3. **Placement**
+      1. `RePLace` - Performs global placement
+      2. `Resizer` - Performs optional optimizations on the design
+      3. `OpenDP` - Perfroms detailed placement to legalize the globally placed components
+  4. **CTS**
+      1. `TritonCTS` - Synthesizes the clock distribution network (the clock tree)
+  5. **Routing**
+      1. `FastRoute` - Performs global routing to generate a guide file for the detailed router
+      2. `CU-GR` - Another option for performing global routing.
+      3. `TritonRoute` - Performs detailed routing
+      4. `SPEF-Extractor` - Performs SPEF extraction
+  6. **GDSII Generation**
+      1. `Magic` - Streams out the final GDSII layout file from the routed def
+      2. `Klayout` - Streams out the final GDSII layout file from the routed def as a back-up
+  7. **Checks**
+      1. `Magic` - Performs DRC Checks & Antenna Checks
+      2. `Klayout` - Performs DRC Checks
+      3. `Netgen` - Performs LVS Checks
+      4. `CVC` - Performs Circuit Validity Checks
 
 
