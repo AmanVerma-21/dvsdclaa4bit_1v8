@@ -20,6 +20,7 @@ The object of this project to design a 4-bit CLA adder using open source EDA too
   * [In Iverilog and GTKwave](#in-iverilog-and-gtkwave)
     * [RTL code](#rtl-code)
     * [Simulation in GTKwave](#simulation-in-gtkwave)
+        > [Output Vs. Input Plot](#output-vs-input-plot)<br>
 - [Layout design in Magic](#layout-design-in-magic)
 - [Post Layout Simulation](#post-layout-simulation)
   * [Output Vs. Input](#output-vs-input)
@@ -89,17 +90,17 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
  ## In eSim and Ngspice
  Refer following manual to know how to operate eSim:
  https://static.fossee.in/esim/manuals/eSim_Manual_2020_August.pdf
-  ### Schematic
+  - ### Schematic
   ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/88a55b0e11e86e4f49996dec90fcf0333bd42194/pre_design_spec_sheet/blck_dg.JPG)
 
   - individual block diagram using n- and p-mosfets:
   
   ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/88a55b0e11e86e4f49996dec90fcf0333bd42194/pre_design_spec_sheet/circuit_1.JPG)
   
-  ### Edit Netlist using sky130 pdk
+  - ### Edit Netlist using sky130 pdk
   Add the sky130 devices and the libraries in .cir.out file
   For more [info](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/90991faf1390d26bbfa89970b4fae71d0e57ff2a/pre_design_spec_sheet/pdk_editing.md)
-  ### Simulation in Ngspice
+  - ### Simulation in Ngspice
   Check here how to run Ngspice: http://ngspice.sourceforge.net/ngspice-tutorial.html
   ```
   $cd dvsdclaa4bit_1v8/Prelayout/ngs_sim
@@ -127,7 +128,8 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
    `$vvp res.out`<br>
    And use gtkwave for visualisation <br>
    `$gtkwave tb.vcd`
-   
+   #### Output Vs. Input Plot
+   ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/7f79996a208cc67d742dbe890bb63a1ae63df0d0/pre_design_spec_sheet/gtk_ubu.JPG)
    
 
 
