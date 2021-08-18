@@ -21,12 +21,10 @@ The object of this project to design a 4-bit CLA adder using open source EDA too
     * [RTL code](#rtl-code)
     * [Simulation in GTKwave](#simulation-in-gtkwave)
         > [Output Vs. Input Plot](#output-vs-input-plot)<br>
-- [Layout design in Magic](#layout-design-in-magic)
-- [Post Layout Simulation](#post-layout-simulation)
-  * [Output Vs. Input](#output-vs-input)
-  * [Frequency Response Plot](#frequency-response-plot-1)
-  * [Output Vs.Supply Plot](#output-vssupply-plot-1)
-  * [Current Gain Vs. Output Plot](#current-gain-vs-output-plot)
+- [Physical Layout design flow](#physical-layout-design-flow)
+  * [OpenLane Design Stages](#openlane-design-stages)
+  * [Post Layout Simulation](#post-layout-simulation)
+    * [Output Vs. Input](#output-vs-input)
 - [Executing the Simulations](#executing-the-simulations)
   * [To execute prelayout simulations](#to-execute-prelayout-simulations-)
   * [To execute postlayout simulations](#to-execute-postlayout-simulations-)
@@ -130,6 +128,37 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
    `$gtkwave tb.vcd`
    #### Output Vs. Input Plot
    ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/7f79996a208cc67d742dbe890bb63a1ae63df0d0/pre_design_spec_sheet/gtk_ubu.JPG)
-   
+## OpenLane Design Stages
+
+OpenLane flow consists of several stages. By default all flow steps are run in sequence. Each stage may consist of multiple sub-stages. OpenLane can also be run interactively as shown [here](https://github.com/The-OpenROAD-Project/OpenLane/blob/40ada4699c2bbee45b273d5683849331e963488a/docs/source/advanced_readme.md).
+
+1. **Synthesis**
+    1. `yosys` - Performs RTL synthesis
+    2. `abc` - Performs technology mapping
+    3. `OpenSTA` - Performs static timing analysis on the resulting netlist to generate timing reports
+2. **Floorplan and PDN**
+    1. `init_fp` - Defines the core area for the macro as well as the rows (used for placement) and the tracks (used for routing)
+    2. `ioplacer` - Places the macro input and output ports
+    3. `pdn` - Generates the power distribution network
+    4. `tapcell` - Inserts welltap and decap cells in the floorplan
+3. **Placement**
+    1. `RePLace` - Performs global placement
+    2. `Resizer` - Performs optional optimizations on the design
+    3. `OpenDP` - Perfroms detailed placement to legalize the globally placed components
+4. **CTS**
+    1. `TritonCTS` - Synthesizes the clock distribution network (the clock tree)
+5. **Routing**
+    1. `FastRoute` - Performs global routing to generate a guide file for the detailed router
+    2. `CU-GR` - Another option for performing global routing.
+    3. `TritonRoute` - Performs detailed routing
+    4. `SPEF-Extractor` - Performs SPEF extraction
+6. **GDSII Generation**
+    1. `Magic` - Streams out the final GDSII layout file from the routed def
+    2. `Klayout` - Streams out the final GDSII layout file from the routed def as a back-up
+7. **Checks**
+    1. `Magic` - Performs DRC Checks & Antenna Checks
+    2. `Klayout` - Performs DRC Checks
+    3. `Netgen` - Performs LVS Checks
+    4. `CVC` - Performs Circuit Validity Checks
 
 
