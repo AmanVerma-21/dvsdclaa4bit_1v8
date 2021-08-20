@@ -15,7 +15,7 @@ The object of this project to design a 4-bit CLA adder using open source EDA too
     * [Schematic](#schematic)
     * [Edit Netlist using sky130 pdk](#edit-netlist-using-sky130-pdk)
     * [Simulation in Ngspice](#simulation-in-ngspice)
-        > [Output Vs. Input Plot](#output-vs-input-plot)<br>
+        > [Output Vs. Input plot](#output-vs-input-plot)<br>
         > [Propagation Delay](#propagation-delay)
   * [In Iverilog and GTKwave](#in-iverilog-and-gtkwave)
     * [RTL code](#rtl-code)
@@ -104,7 +104,7 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
   $cd dvsdclaa4bit_1v8/Prelayout/ngs_sim
   $ngspice dvsdclaa_1v8.cir.out
   ```
-   #### Output Vs. Input Plot
+   #### Output Vs. Input plot
    ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/26e1bc254d5ee79d5b9a9252eb4bad2eb8bb468b/pre_design_spec_sheet/out_img_2.JPG)
    #### Propagation Delay
    - approx 5ns propagation delay took for each output generating:  
@@ -131,21 +131,47 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
 # Physical Layout design flow
   ## OpenLane Design Stages
 
-  OpenLane flow consists of several stages. By default all flow steps are run in sequence. Each stage may consist of multiple sub-stages. OpenLane can also be run interactively as shown [here](https://github.com/The-OpenROAD-Project/OpenLane/blob/40ada4699c2bbee45b273d5683849331e963488a/docs/source/advanced_readme.md).
-
+  OpenLane flow consists of several stages. By default all flow steps are run in sequence. Each stage may consist of multiple sub-stages. OpenLane can also be run interactively as shown [here](https://github.com/The-OpenROAD-Project/OpenLane/blob/40ada4699c2bbee45b273d5683849331e963488a/docs/source/advanced_readme.md).<br>
+  run given command in terminal and pwd should be `/Openlane`<br>
+  `make mount`  
+  Now, we are in docker<br>  
+  ```bash
+        ./flow.tcl -interactive  
+        package require openlane  
+        prep -design cla_adder_4bit -tag rn_1 -init_design_config -src cla_adder_4it.v  
+  ```
+![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/5ca2c302bddf12c670b96d8bee9c51dded52a3b5/post_layout/invoki_opnln.JPG)
+after this there are some steps we need to do:
+```bash
+run_synthesis
+```
   1. **Synthesis**
       1. `yosys` - Performs RTL synthesis
       2. `abc` - Performs technology mapping
       3. `OpenSTA` - Performs static timing analysis on the resulting netlist to generate timing reports
+      ### synthesis statistics view
+      ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_synth_statis.JPG)
+      ### synthesis generated netlist
+      ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_synth_netlist.JPG)
   2. **Floorplan and PDN**
       1. `init_fp` - Defines the core area for the macro as well as the rows (used for placement) and the tracks (used for routing)
       2. `ioplacer` - Places the macro input and output ports
-      3. `pdn` - Generates the power distribution network
-      4. `tapcell` - Inserts welltap and decap cells in the floorplan
+      ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_florpln_ioplcaer.JPG)
+      4. `pdn` - Generates the power distribution network
+      ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_florpln_pdn.JPG)
+      6. `tapcell` - Inserts welltap and decap cells in the floorplan
+      ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_florpln_tapecell.JPG)
+      ### floorplan view 
+      ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_florpln_deffile.JPG)
+      ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_florpln_msgview.JPG)
   3. **Placement**
       1. `RePLace` - Performs global placement
       2. `Resizer` - Performs optional optimizations on the design
       3. `OpenDP` - Perfroms detailed placement to legalize the globally placed components
+      ### after placement
+      ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_placement.JPG)
+      ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_placement_magview.JPG)
+      
   4. **CTS**
       1. `TritonCTS` - Synthesizes the clock distribution network (the clock tree)
   5. **Routing**
@@ -153,9 +179,14 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
       2. `CU-GR` - Another option for performing global routing.
       3. `TritonRoute` - Performs detailed routing
       4. `SPEF-Extractor` - Performs SPEF extraction
+      ### after routing
+      ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_routing_magview.JPG)
+      
   6. **GDSII Generation**
       1. `Magic` - Streams out the final GDSII layout file from the routed def
-      2. `Klayout` - Streams out the final GDSII layout file from the routed def as a back-up
+      ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_magicview.JPG)
+      3. `Klayout` - Streams out the final GDSII layout file from the routed def as a back-up
+      ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/5ca2c302bddf12c670b96d8bee9c51dded52a3b5/post_layout/layout_gds_view.JPG)
   7. **Checks**
       1. `Magic` - Performs DRC Checks & Antenna Checks
       2. `Klayout` - Performs DRC Checks
