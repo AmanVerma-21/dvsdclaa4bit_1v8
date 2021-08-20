@@ -33,8 +33,6 @@ The object of this project to design a 4-bit CLA adder using open source EDA too
 - [Differences between Prelayout and Postlayout and Why?](#differences-between-prelayout-and-postlayout-and-why-)
 - [Error Debugging help desk](#error-debugging-help-desk)
 - [Future Scope](#future-scope)
-- [Contributor](#contributor)
-- [Acknowledgments](#acknowledgments)
 
 # Prerequisites
 - Ubuntu(prefer V18.0)
@@ -240,4 +238,5 @@ after this there are some steps we need to do:
    #### post Output Vs. Input Plot
    ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/7f79996a208cc67d742dbe890bb63a1ae63df0d0/pre_design_spec_sheet/gtk_ubu.JPG)
    
-   
+# Future Scope
+  Design more ips and assemble all of them in single ip to design ALU and try to make accurate iterfacing with each other by using protocols. 
