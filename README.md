@@ -15,16 +15,18 @@ The object of this project to design a 4-bit CLA adder using open source EDA too
     * [Schematic](#schematic)
     * [Edit Netlist using sky130 pdk](#edit-netlist-using-sky130-pdk)
     * [Simulation in Ngspice](#simulation-in-ngspice)
-        > [Output Vs. Input plot](#output-vs-input-plot)<br>
+        > [pre spice Output Vs. Input plot](#pre-spice-output-vs-input-plot)<br>
         > [Propagation Delay](#propagation-delay)
   * [In Iverilog and GTKwave](#in-iverilog-and-gtkwave)
     * [RTL code](#rtl-code)
     * [Simulation in GTKwave](#simulation-in-gtkwave)
-        > [Output Vs. Input Plot](#output-vs-input-plot)<br>
+        > [pre Output Vs. Input Plot](#pre-output-vs-input-plot)<br>
 - [Physical Layout design flow](#physical-layout-design-flow)
   * [OpenLane Design Stages](#openlane-design-stages)
-  * [Post Layout Simulation](#post-layout-simulation)
-    * [Output Vs. Input](#output-vs-input)
+  * [Post Layout Simulation: In Iverilog and GTKwave](#post-layout-simulation-in-iverilog-and-gtkwave)
+    * [Updated RTL code](#updated-rtl-code)
+    * [Updated Simulation in GTKwave](#updated-simulation-in-gtkwave)
+        > [post Output Vs. Input Plot](#post-output-vs-input-plot)<br>
 - [Executing the Simulations](#executing-the-simulations)
   * [To execute prelayout simulations](#to-execute-prelayout-simulations-)
   * [To execute postlayout simulations](#to-execute-postlayout-simulations-)
@@ -104,7 +106,7 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
   $cd dvsdclaa4bit_1v8/Prelayout/ngs_sim
   $ngspice dvsdclaa_1v8.cir.out
   ```
-   #### Output Vs. Input plot
+   #### pre spice Output Vs. Input plot
    ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/26e1bc254d5ee79d5b9a9252eb4bad2eb8bb468b/pre_design_spec_sheet/out_img_2.JPG)
    #### Propagation Delay
    - approx 5ns propagation delay took for each output generating:  
@@ -126,7 +128,7 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
    `$vvp res.out`<br>
    And use gtkwave for visualisation <br>
    `$gtkwave tb.vcd`
-   #### Output Vs. Input Plot
+   #### pre Output Vs. Input Plot
    ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/7f79996a208cc67d742dbe890bb63a1ae63df0d0/pre_design_spec_sheet/gtk_ubu.JPG)
 # Physical Layout design flow
   ## OpenLane Design Stages
@@ -217,4 +219,25 @@ after this there are some steps we need to do:
       3. `Netgen` - Performs LVS Checks
       4. `CVC` - Performs Circuit Validity Checks
 
-
+## Post Layout Simulation: In Iverilog and GTKwave
+   ### Updated RTL code
+   Here is the full code of updated code by using sky130 pdk and test bench for 4-bit CLA adder:  
+   [cla_adder_4bit.synthesis.v](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/6b65292b4650795e384054156e68353371512ee3/post_layout/rtl_code/cla_adder_4bit.synthesis.v)  
+   [tb_1.v](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/6b65292b4650795e384054156e68353371512ee3/post_layout/rtl_code/tb_1.v)
+   here we also need sky130 rtl libary for executing above files:
+   [primitives.v](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/4ea59c7982353a97e1d7d8cc4158bfe03da378f5/post_layout/rtl_code/primitives.v)
+   [sky130_fd_sc_hd.v](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/4ea59c7982353a97e1d7d8cc4158bfe03da378f5/post_layout/rtl_code/sky130_fd_sc_hd.v)
+   ### Updated Simulation in GTKwave
+   run below code in terminal command:
+   ```
+   $cd dvsdclaa4bit_1v8/post_layout/rtl_code
+   $iverilog -o res tb_1.v cla_adder_4bit.synthesis.v
+   ```
+   Now create the dumpfile(tb.vcd) of testbench flow:  
+   `$vvp res.out`<br>
+   And use gtkwave for visualisation <br>
+   `$gtkwave tb_1.vcd`
+   #### post Output Vs. Input Plot
+   ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/7f79996a208cc67d742dbe890bb63a1ae63df0d0/pre_design_spec_sheet/gtk_ubu.JPG)
+   
+   
