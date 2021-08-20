@@ -54,7 +54,7 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
 
 
 # Performance Specifications
-
+![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/69359785b2e4c62fca5e122ceacd12335502671a/spec.JPG)
 # Block Diagram
 ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/ad01ffe8c861473edc7242b49be7c29a54198739/g1.JPG)
 - Internal flow of dvsdclaa4bit_1v8 chip  
