@@ -142,10 +142,11 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
   ```
 ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/5ca2c302bddf12c670b96d8bee9c51dded52a3b5/post_layout/invoki_opnln.JPG)
 after this there are some steps we need to do:
-```bash
-run_synthesis
-```
+
   1. **Synthesis**
+      ```bash
+             run_synthesis
+      ```
       1. `yosys` - Performs RTL synthesis
       2. `abc` - Performs technology mapping
       3. `OpenSTA` - Performs static timing analysis on the resulting netlist to generate timing reports
@@ -154,6 +155,10 @@ run_synthesis
       ### synthesis generated netlist
       ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_synth_netlist.JPG)
   2. **Floorplan and PDN**
+      ```bash
+      run_floorplan
+      ```
+      
       1. `init_fp` - Defines the core area for the macro as well as the rows (used for placement) and the tracks (used for routing)
       2. `ioplacer` - Places the macro input and output ports
       ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_florpln_ioplcaer.JPG)
@@ -165,6 +170,9 @@ run_synthesis
       ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_florpln_deffile.JPG)
       ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_florpln_msgview.JPG)
   3. **Placement**
+      ```bash
+      run_placement
+      ```
       1. `RePLace` - Performs global placement
       2. `Resizer` - Performs optional optimizations on the design
       3. `OpenDP` - Perfroms detailed placement to legalize the globally placed components
@@ -173,8 +181,14 @@ run_synthesis
       ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_placement_magview.JPG)
       
   4. **CTS**
+      ```bash
+      run_cts
+      ```
       1. `TritonCTS` - Synthesizes the clock distribution network (the clock tree)
   5. **Routing**
+      ```bash
+      run_routing
+      ```
       1. `FastRoute` - Performs global routing to generate a guide file for the detailed router
       2. `CU-GR` - Another option for performing global routing.
       3. `TritonRoute` - Performs detailed routing
@@ -183,11 +197,21 @@ run_synthesis
       ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_routing_magview.JPG)
       
   6. **GDSII Generation**
+      
+      ```bash
+      run_magic
+      run_magic_spice_export
+      ```
       1. `Magic` - Streams out the final GDSII layout file from the routed def
       ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/fa9ebb45db4c2fc05d378575444882bbdfb570d2/post_layout/ss_magicview.JPG)
       3. `Klayout` - Streams out the final GDSII layout file from the routed def as a back-up
       ![image](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/5ca2c302bddf12c670b96d8bee9c51dded52a3b5/post_layout/layout_gds_view.JPG)
   7. **Checks**
+      ```bash
+      run_magic_drc
+      run_lvs
+      run_antenna_check
+      ```
       1. `Magic` - Performs DRC Checks & Antenna Checks
       2. `Klayout` - Performs DRC Checks
       3. `Netgen` - Performs LVS Checks
