@@ -95,6 +95,8 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
   - ### Edit Netlist using sky130 pdk
   Add the sky130 devices and the libraries in .cir.out file
   For more [info](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/90991faf1390d26bbfa89970b4fae71d0e57ff2a/pre_design_spec_sheet/pdk_editing.md)
+  After Editing we got this file:<br>
+  [4b_cla_adder.cir](https://github.com/AmanVerma-21/dvsdclaa4bit_1v8/blob/dcb911bd2fdf23a513d99c328bbc45a484c48ed7/pre_design_spec_sheet/spice_netlist/4b_cla_adder_test_1.cir)
   - ### Simulation in Ngspice
   Check here how to run Ngspice: http://ngspice.sourceforge.net/ngspice-tutorial.html
   ```
